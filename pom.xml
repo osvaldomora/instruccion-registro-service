@@ -88,10 +88,10 @@
         </dependency>
 
 		<dependency>
-        	<groupId>com.oracle</groupId>
-	        <artifactId>ojdbc8</artifactId>
-	        <version>12.2.0.1</version>
-	    </dependency>
+		    <groupId>com.oracle.ojdbc</groupId>
+		    <artifactId>ojdbc8</artifactId>
+		    <version>19.3.0.0</version>
+		</dependency>
 	     
 	     
 	    <!-- Dependencia de seguridad, validacion de jwt y propagacion de jwt contra keymanager de serenity -->
@@ -131,6 +131,14 @@
         	<groupId>org.springframework.boot</groupId>
         	<artifactId>spring-boot-starter-security</artifactId>
    		 </dependency>
+   		
+   		<!-- Nueva dependencia --> 
+   		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.20</version>
+			<scope>provided</scope>
+		</dependency>
    		 
 	</dependencies>
 
