@@ -113,6 +113,7 @@ public class InstructionSendService implements IInstructionSendService {
 									.folio(instrSendModel.getIdFolio())	//Folio
 									.folioRequest(instrSendModel.getIdIntrsNvas())	//Solicitud de Folio
 									.type(fileDto.getType())	//Tipo de archivo
+									.fileName(file.getOriginalFilename()) 	//Nombre de archivo
 									.dateOperation(instrSendModel.getFchRegisInsct())	//Fecha de transsaccion
 									.build());	
 		}

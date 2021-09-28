@@ -18,9 +18,10 @@ import lombok.NoArgsConstructor;
 public class SendIntrsFolioDto implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	public Long folio;
-    public Long folioRequest;
-    public String type;
-    public Date dateOperation;
+	private Long folio;
+    private Long folioRequest;
+    private String fileName;
+    private String type;
+    private Date dateOperation;
 
 }
