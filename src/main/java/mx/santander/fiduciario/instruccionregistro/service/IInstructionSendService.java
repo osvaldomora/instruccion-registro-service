@@ -10,7 +10,7 @@ import mx.santander.fiduciario.instruccionregistro.model.InstruccionEnviadaModel
 
 public interface IInstructionSendService {
 	
-	InstruccionEnviadaModel saveInstruction(SendInstrReqDto instrReqDto);
+	InstruccionEnviadaModel saveInstruction(SendInstrReqDto instrReqDto, Long folio);
 	
 	
 	SendInstrResDto saveInstructions(String jsonRequest, List<MultipartFile> files);

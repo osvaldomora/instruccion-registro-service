@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.AllArgsConstructor;
@@ -20,10 +22,14 @@ import lombok.NoArgsConstructor;
 public class SendInstrReqDto implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	@NotNull
 	private SendIntrsBucDto buc;
+	@NotNull
     private SendInstrTypeInstructionDto typeInstruction;
+	@NotNull
     private SendInstrBusinessDto business;
     @Builder.Default
+	@NotNull
     private List<SendInstrFileDto> files = new ArrayList<>();
 
 }

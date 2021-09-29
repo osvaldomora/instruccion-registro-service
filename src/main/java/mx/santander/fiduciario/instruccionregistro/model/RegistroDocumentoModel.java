@@ -1,11 +1,13 @@
 package mx.santander.fiduciario.instruccionregistro.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -22,8 +24,10 @@ import lombok.NoArgsConstructor;
 public class RegistroDocumentoModel {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "REGISTRO_DOCUMENTO_SEQ")
+    @SequenceGenerator(sequenceName = "SEQREGISTRO_DOCUMENTO", allocationSize = 1, name = "REGISTRO_DOCUMENTO_SEQ")
 	@Column(name = "NUMERO_UNICO_DOCUMENTO")
-	private BigDecimal numeroUnicoDoc;
+	private Long numeroUnicoDoc;
 	
 	@Column(name = "CLAVE_TIPO_DOCUMENTO")
 	private String claveTipoDoc;
@@ -35,13 +39,13 @@ public class RegistroDocumentoModel {
 	private String conceptoDoc;
 	
 	@Column(name = "PARTE_CONTRATO")
-	private String parteContrato;
+	private String parteContrato;	//FIDEICOMITENTE|FIDEICOMISARIO
 	
 	@Column(name = "CLAVE_PO")
-	private BigDecimal clavePo;
+	private Long clavePo;
 	
 	@Column(name = "TESTIMONIO_CERTIFICADA_SIMPLE")
-	private String testimonioCertifSimple;
+	private String testimonioCertifSimple;	//T|S
 	
 	@Column(name = "FECHA_VENCIMIENTO_DOCUMENTO")
 	private Date fechaVencimientoDoc;
@@ -59,7 +63,7 @@ public class RegistroDocumentoModel {
 	private String individualMasivo;
 	
 	@Column(name = "CIFRA_CONTROL")
-	private BigDecimal cifraControl;
+	private Long cifraControl;
 	
 	@Column(name = "ESTATUS_APLICACION_DOCUMENTO")
 	private String estatusAplicacionDoc;
