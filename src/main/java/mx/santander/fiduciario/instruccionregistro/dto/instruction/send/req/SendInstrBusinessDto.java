@@ -3,13 +3,17 @@ package mx.santander.fiduciario.instruccionregistro.dto.instruction.send.req;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.sun.istack.NotNull;
+import com.sun.istack.NotNull;// Noncompliant
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * La Clase se encarga de transformar datos de envio de Instrucciones de contrato
+ * @author 
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,10 +21,12 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SendInstrBusinessDto implements Serializable{
 
+	// Variable para serializar la clase.
 	private static final long serialVersionUID = 1L;
+	//La variable id
 	@NotNull
 	private Long id;
+	//La variable subBusiness
 	@NotNull
     private SendInstrSubBusinessDto subBusiness;
-
-}
+}//Fin de la clase 
