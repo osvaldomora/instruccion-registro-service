@@ -2,17 +2,24 @@ package mx.santander.fiduciario.instruccionregistro.mapper;
 
 import mx.santander.fiduciario.instruccionregistro.dto.instruction.send.res.SendIntrsFolioDto;
 
-public class SendIntrsFolioMapper {
+/**
+ * Clase SendIntrsFolioMapper
+ * Permite mapear envio de instruccion de folio 
+ * @author
+ */
+public final class SendIntrsFolioMapper {
 
-	//Evita que la clase sea instanciada
-	private SendIntrsFolioMapper() {}
+	/**
+	 * Constructor SendIntrsFolioMapper Evita que la clase sea instanciada
+	 */
+	private SendIntrsFolioMapper() {}//Fin del constructor 
 	
+	/**
+	 * Metodo toDto
+	 * @return SendIntrsFolioDto  envio de instruccion
+	 */
 	public static SendIntrsFolioDto toDto() {
-		//Se crea instancia
-		SendIntrsFolioDto folioDto = null;
-		//Se mapean datos
-
+		SendIntrsFolioDto folioDto = null; //Se crea instancia, mapean datos
 		return folioDto;
-	}
-	
-}
+	}//Fin del metodo 
+}//Fin de la clase 
