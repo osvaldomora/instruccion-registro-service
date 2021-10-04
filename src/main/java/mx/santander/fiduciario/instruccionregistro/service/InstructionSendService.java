@@ -27,6 +27,14 @@ import mx.santander.fiduciario.instruccionregistro.model.InstruccionEnviadaModel
 import mx.santander.fiduciario.instruccionregistro.repository.IInstructionSendRepository;
 import mx.santander.fiduciario.instruccionregistro.exception.BusinessException;
 
+/**
+ * Clase InstructionSendService
+ * Este microservicio,encargada de 
+ * orquestador la logica de negocio 
+ * relacionada con instruccion con anexos 
+ * y sus datos (persistencia).
+ * @author 
+ */
 @Setter
 @Service
 public class InstructionSendService implements IInstructionSendService {
@@ -74,7 +82,7 @@ public class InstructionSendService implements IInstructionSendService {
 		InstruccionEnviadaModel instrSendModelRes = this.instructionSendRepository.save(instrSendModelReq);
 		LOGGER.info("Operacion: saveInstruction, se ha guardado instruccion enviada con exito: {}",instrSendModelRes.toString());
 		return instrSendModelRes;
-	}
+	}//Fin del metodo 
 
 	/**
 	 * Este metodo es el encargado de la logica de negocio al enviar una instruccion 
@@ -169,7 +177,7 @@ public class InstructionSendService implements IInstructionSendService {
 		instrResDto.getData().setFolios(foliosObtenidos);
 
 		return instrResDto;
-	}
+	}//Fin del metodo 
 
 	/**
 	 * Este metodo permite insertar los archivos en la tabla de Instrucciones anexas, valida existe comite tecnico
@@ -211,11 +219,10 @@ public class InstructionSendService implements IInstructionSendService {
 									.dateOperation(dateInsert)	//Fecha de transsaccion
 									.build());	
 		}
-	}
+	}//Fin del metodo 
 	
 	/**
-	 * Este metodo ordena una lista de archivos, poniendo el tipo como INSTRUCCION al inicio 
-	 * de la lista
+	 * Este metodo ordena una lista de archivos, poniendo el tipo como INSTRUCCION al inicio de la lista
 	 * @param filesDtoTemp lista de archivos con la informacion en el DTO
 	 * @param filesTemp lista de archivos
 	 */
@@ -232,11 +239,10 @@ public class InstructionSendService implements IInstructionSendService {
 				filesTemp.remove(i+1);
 			}
 		}
-	}
+	}//Fin del metodo
 	
 	/**
-	 * Este metodo valida el archivo y la informacion del archivo sean correctas y validan los tamanios
-	 * de los archivos.
+	 * Este metodo valida el archivo y la informacion del archivo sean correctas y validan los tamanios de los archivos.
 	 * @param file archivo a evaluar
 	 * @param fileDto informacion de archivo a evaluar
 	 */
@@ -255,7 +261,7 @@ public class InstructionSendService implements IInstructionSendService {
 			LOGGER.warn("Operacion: saveInstructions, subOperacion: validateSizeFiles, error archivo enviado no concuerda con el tamanio de bytes enviado en JSON: {}",file.getName());
 			throw new BusinessException(BusinessCatalog.BUSI001, "Error archivo enviado no con cuerda con el tamanio de bytes enviado en JSON: "+file.getOriginalFilename());
 		}
-	}
+	}//Fin del metodo 
 	
 	/**
 	 * Este metodo valida el formato de los archivos y la informacion del archivo enviado
@@ -285,5 +291,5 @@ public class InstructionSendService implements IInstructionSendService {
 			LOGGER.error("Operacion: saveInstructions, subOperacion: validateFormatFiles, error tipo de archivo no valido!");
 		}
 
-	}
-}
+	}//Fin del metodo 
+}//Fin de la clase 

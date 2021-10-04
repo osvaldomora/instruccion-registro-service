@@ -13,6 +13,14 @@ import mx.santander.fiduciario.instruccionregistro.enumerations.FileInstruction;
 import mx.santander.fiduciario.instruccionregistro.model.RegistroDocumentoModel;
 import mx.santander.fiduciario.instruccionregistro.repository.IDocumentRegistrationRepository;
 
+/**
+ * Clase DocumentRegistrationService
+ * Este microservicio,encargada de 
+ * orquestador la logica de negocio 
+ * relacionada con instruccion con anexos 
+ * y sus datos (persistencia).
+ * @author 
+ */
 @Service
 public class DocumentRegistrationService implements IDocumentRegistrationService{
 
@@ -24,28 +32,39 @@ public class DocumentRegistrationService implements IDocumentRegistrationService
 	private IDocumentRegistrationRepository documentRegistrationRepository;
 	
 	//Constante quien envia el contrato (parteContrato)
-	private final String PARTE_CONTRATO = "FIDEICOMITENTE";
+	private static final String PARTE_CONTRATO = "FIDEICOMITENTE";
 	
 	//Constante archivo individual
-	private final String INDIVIDUAL_MASIVO = "I";
+	private static final String INDIVIDUAL_MASIVO = "I";
 	
 	//Contante al enviar archivo, pendiente
-	private final String STATUS_APLI_DOC = "PE";
+	private static final String STATUS_APLI_DOC = "PE";
 	
 	//Constante del estatus del documento: archivado
-	private final String STATUS_DOC = "AR";
+	private static final String STATUS_DOC = "AR";
 	
 	//Constante del documento copia u origial: proviene de Web
-	private final String COPIA_ORIGINAL = "W";
+	private static final String COPIA_ORIGINAL = "W";
 	
+	/**
+	 * Metodo save
+	 * @param documentoModel documento Modelo
+	 * @return RegistroDocumentoModel guardar archivo
+	 */
 	@Override
 	public RegistroDocumentoModel save(RegistroDocumentoModel documentoModel) {
 		//Se registra en BD
 		documentoModel = this.documentRegistrationRepository.save(documentoModel);
 		LOGGER.info("Servicio: DocumentRegistrationService, Operacion: save, se guarda registroDocumento con exito: {}",documentoModel.toString());
 		return documentoModel;
-	}
+	}//Fin del metodo 
 
+	/**
+	 * Metodo saveRegistrationDoc
+	 * @param instrReqDto peticion de instrucciones
+	 * @param fileDto archivo 
+	 * @return RegistroDocumentoModel registro de documento
+	 */
 	@Override
 	public RegistroDocumentoModel saveRegistrationDoc(SendInstrReqDto instrReqDto, SendInstrFileDto fileDto) {
 		//Se obtiene valor de variables
@@ -84,8 +103,5 @@ public class DocumentRegistrationService implements IDocumentRegistrationService
 		//Se procede a registrar
 		documentoModel = this.save(documentoModel);
 		return documentoModel;
-	}
-	
-	
-
-}
+	}//Fin del metodo 
+}//Fin de la clase 
