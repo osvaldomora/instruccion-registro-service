@@ -1,38 +1,35 @@
 package mx.santander.fiduciario.instruccionregistro.controller.exception.model;
 
 import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
- * @author David Gonzalez - (Arquetipo creado por Santander Tecnologia Mexico)
- * 
  * La clase ErrorBean, usada para indicar los errores que sucedieron durante la ejecucion.
+ * @author David Gonzalez - (Arquetipo creado por Santander Tecnologia Mexico)
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DefaultError implements Serializable {
 
-    /** Variable para serializar la clase. */
+    // Variable para serializar la clase.
     private static final long serialVersionUID = 1L;
 
-	/** La variable code. */
+	// La variable code.
     private String code;
     
-    /** La variable message. */
+    // La variable message.
     private String message;
 
-    /** La variable level. */
+    // La variable level. 
     private String level;
 
-    /** La variable description. */
+    // La variable description. 
     private String description;
     
-    /** La variable more info. */
+    // La variable more info. 
     private String moreInfo;
 
     /**
      * Constructor que recibe todos los parametros del enumerador de mensajes
-     * 
      * @param code Un codigo de error unico, el cual pueda ser identificado y localizado para mas detalles. Debe ser human readable, por tanto no deberia ser un codigo numerico, sino alfanumerico.
      * @param message Un mensaje de error claro: Por consideraciones de seguridad estos mensajes de error no deben contener informacion interna que pudiera implicar un riesgo a la seguridad e integridad.
      * @param level  Un nivel de error: info, warning, error.
@@ -46,12 +43,11 @@ public class DefaultError implements Serializable {
 		this.level = level;
 		this.description = description;
 		this.moreInfo = moreInfo;
-	}
+	}//Fin del constructor 
 
     
     /**
      * Constructor que recibe todos los parametros del enumerador de mensajes, excepto una descripcion detallada
-     * 
      * @param code Un codigo de error unico, el cual pueda ser identificado y localizado para mas detalles. Debe ser human readable, por tanto no deberia ser un codigo numerico, sino alfanumerico.
      * @param message Un mensaje de error claro: Por consideraciones de seguridad estos mensajes de error no deben contener informacion interna que pudiera implicar un riesgo a la seguridad e integridad.
      * @param level  Un nivel de error: info, warning, error.
@@ -63,54 +59,45 @@ public class DefaultError implements Serializable {
 		this.level = level;
 		this.description = null;
 		this.moreInfo = moreInfo;
-	}
+	}//Fin del constructor 
 
     /**
      * Obtiene el valor de la variable code.
-     *
-     * @return el code
+     * @return String el code
      */
     public String getCode() {
         return code;
-    }
+    }//Fin del metodo 
 
     /**
      * Obtiene el valor de la variable message.
-     *
-     * @return el message
+     * @return String el message
      */
     public String getMessage() {
         return message;
-    }
-
+    }//Fin del metodo 
 
     /**
      * Obtiene el valor de la variable nivel.
-     *
-     * @return el level
+     * @return String el level
      */
     public String getLevel() {
         return level;
-    }
-
+    }//Fin del metodo 
 
     /**
      * Obtiene el valor de la variable description.
-     *
-     * @return el description
+     * @return String el description
      */
     public String getDescription() {
         return description;
-    }
+    }//Fin del metodo 
 
     /**
      * Obtiene el valor de la variable more info.
-     *
-     * @return el more info
+     * @return String el more info
      */
     public String getMoreInfo() {
         return moreInfo;
-    }
-
-
-}
+    }//Fin del metodo 
+}//Fin de la clase
