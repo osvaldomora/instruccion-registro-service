@@ -8,13 +8,14 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * Esta clase permite trabajr con archivos, sus diferentes funcion son:
  * codificar y decodificar archivos en base64 y obtener el nombre de a extension
+ * @author 
  */
-public class FileTool {
+public final class FileTool {
 
 	/**
 	 * Constructor privado que no permite hacer instancia
 	 */
-	private FileTool() {}
+	private FileTool() {}//Fin del constructor 
 	
 	/**
 	 * Este metodo permite encriptar un archivo multipart en base64
@@ -23,14 +24,14 @@ public class FileTool {
 	 * @throws IOException error al tratar de encriptar
 	 */
 	public static String encode64(MultipartFile file) throws IOException {
-		StringBuffer fileEncode = new StringBuffer();
+		StringBuilder fileEncode = new StringBuilder();
 
-		byte fileBytes[] = file.getBytes();
+		byte [] fileBytes = file.getBytes();
 		String encodeBytes = Base64.getEncoder().encodeToString(fileBytes);
 		fileEncode.append(encodeBytes);
 
 		return fileEncode.toString();
-	}
+	}//Fin del metodo 
 	
 	/**
 	 * Este metodo permite decodificar una cadena en base 64
@@ -40,7 +41,7 @@ public class FileTool {
 	public static byte[] decode64 (String fileEncode) {
 		byte[] bytesDecode = Base64.getDecoder().decode(fileEncode);
 		return bytesDecode;
-	}
+	}//Fin del metodo 
 	
 	/**
 	 * Este metodo permite obtener el nombre de la extension del archivo
@@ -51,6 +52,5 @@ public class FileTool {
 		String extension = "";
 		extension = fullNameFile.substring(fullNameFile.indexOf(".")+1);
 		return extension;
-	}
-
-}
+	}//Fin del metodo 
+}//Fin de la clase 

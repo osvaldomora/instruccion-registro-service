@@ -43,10 +43,10 @@ public class InstructionSendService implements IInstructionSendService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(InstructionSendService.class);
 
 	//Variable de tamaño de archivos 15MB
-	private final Long MAX_SIZE_FILE_BYTES = 15728640L;
+	private static final Long MAX_SIZE_FILE_BYTES = 15728640L;
 	
 	//Vatuable de comite tecnico
-	private final boolean COMITE_TECNICO = false;
+	private static final boolean COMITE_TECNICO = false;
 	
 	//Variable de servicio Registro de Documento
 	@Autowired
@@ -290,6 +290,5 @@ public class InstructionSendService implements IInstructionSendService {
 		default:
 			LOGGER.error("Operacion: saveInstructions, subOperacion: validateFormatFiles, error tipo de archivo no valido!");
 		}
-
 	}//Fin del metodo 
 }//Fin de la clase 
