@@ -38,13 +38,10 @@ public class InstructionController {
 	private IInstructionSendService instructionSendService;
 	
 	/**
-	 * Este es un metodo HTTP GET consulta el recurso de tipo de instruccion y en la
-	 * implementacion de la interfaz de negocio typeInstructionService puede
+	 * Este es un metodo HTTP POST que envia las solicitudes de instrucciones, que
+	 * implementa  de la interfaz de negocio instructionSendService puede
 	 * realizar ciertas transformaciones DTO a la consulta para enriquecer la
 	 * presentacion.
-	 * Este metodo es idempotente, y sus procesos derivados NUNCA deben modificar el
-	 * estado de algun recurso en el servidor. TODOS los procesos desencadenados
-	 * deben ser solo de consulta.
 	 * @param files archivo 
 	 * @param instruction instruccion 
 	 * @return ResponseEntity<?> Una lista de typeInstructions en un objeto JSON obtenido
