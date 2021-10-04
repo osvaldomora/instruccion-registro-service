@@ -25,22 +25,22 @@ import mx.santander.fiduciario.instruccionregistro.exception.catalog.BusinessCat
 import mx.santander.fiduciario.instruccionregistro.exception.catalog.GeneralCatalog;
 
 /**
- * @author David Gonzalez - (Arquetipo creado por Santander Tecnologia Mexico)
- * 
  * Esta clase se encarga de servir como apoyo al controller, manejando de manera desacoplada 
  * las excepciones esperadas en la aplicacion, y manejando el catalogo de errores con ayuda de un enumerador personalizado.
  * Tambien tiene un manejo de errores genericos.
+ * @author David Gonzalez - (Arquetipo creado por Santander Tecnologia Mexico)
  */
 @ControllerAdvice
 public class RestExceptionHandler {
 
+	// La Constante LOGGER. Obtiene el Logger de la clase
 	private static final Logger LOGGER = LoggerFactory.getLogger(RestExceptionHandler.class);
 	
 	/**
 	 * Manejo de excepciones personalizadas de acuerdo al negocio
 	 * @param ex Modelo de la excepcion recibida
 	 * @param request Informacion del request enviado
-	 * @return Respuesta basada en el catalogo de excepciones
+	 * @return ResponseEntity<DefaultErrorList> Respuesta basada en el catalogo de excepciones
 	 */
 	@ExceptionHandler({BusinessException.class, InvalidDataException.class, PersistenDataException.class,GeneralException.class})
 	public ResponseEntity<DefaultErrorList> handlerRestException (ModelException ex, HttpServletRequest request){
@@ -52,12 +52,13 @@ public class RestExceptionHandler {
 																 ex.getDescription(),
 																 request.getRequestURL().toString())
 																),ex.getHttpStatus());
-	}
+	}//Fin del metodo
     
     /**
      * Manejo de excepciones de validacion de argumentos de entrada
      * @param pe Excepcion de tipo MethodArgumentNotValidException
-     * @return La entidad de respuesta que maneja el error como objeto
+     * @param request Informacion del request enviado
+     * @return ResponseEntity<DefaultErrorList> La entidad de respuesta que maneja el error como objeto
      */
 	@ExceptionHandler(value = {MethodArgumentNotValidException.class})
 	public ResponseEntity<DefaultErrorList> handleValidationExceptionA(MethodArgumentNotValidException pe, HttpServletRequest request) {
@@ -68,12 +69,13 @@ public class RestExceptionHandler {
 																							pe.getBindingResult().getFieldError().getField().toString() + ": " + pe.getBindingResult().getFieldError().getDefaultMessage(),
 																							request.getRequestURL().toString()
 																							)), GeneralCatalog.GRAL006.getHtttpStatus());
-	}
+	}//Fin del metodo 
 
 	/**
      * Manejo de excepciones de validacion de formatos de numeros de entrada
      * @param pe Excepcion de tipo NumberFormatException
-     * @return La entidad de respuesta que maneja el error como objeto
+     * @param request Informacion del request enviado
+     * @return ResponseEntity<DefaultErrorList> La entidad de respuesta que maneja el error como objeto
      */
 	@ExceptionHandler(value = {NumberFormatException.class})
 	public ResponseEntity<DefaultErrorList> handleValidationExceptionB(NumberFormatException pe, HttpServletRequest request) {
@@ -84,12 +86,13 @@ public class RestExceptionHandler {
 																						"Excepcion de formatos de numeros de entrada",
 																						request.getRequestURL().toString()
 																						)), GeneralCatalog.GRAL002.getHtttpStatus());
-	}
+	}//Fin del metodo 
 
 	/**
      * Manejo de excepciones de validacion de tipo de datos de entrada
      * @param pe Excepcion de tipo MethodArgumentTypeMismatchException
-     * @return La entidad de respuesta que maneja el error como objeto
+     * @param request Informacion del request enviado
+     * @return ResponseEntity<DefaultErrorList> La entidad de respuesta que maneja el error como objeto
      */
 	@ExceptionHandler(value = {MethodArgumentTypeMismatchException.class})
 	public ResponseEntity<DefaultErrorList> handleValidationExceptionC(MethodArgumentTypeMismatchException pe, HttpServletRequest request) {
@@ -100,13 +103,14 @@ public class RestExceptionHandler {
 																							"Excepcion de tipo de datos de entrada",
 																							request.getRequestURL().toString()
 																							)), GeneralCatalog.GRAL002.getHtttpStatus());
-	}
+	}//Fin del metodo 
 
 
 	/**
      * Manejo de excepciones de validacion de cantidad de parametros de entrada enviados
      * @param pe Excepcion de tipo MissingServletRequestParameterException
-     * @return La entidad de respuesta que maneja el error como objeto
+     * @param request Informacion del request enviado
+     * @return ResponseEntity<DefaultErrorList> La entidad de respuesta que maneja el error como objeto
      */
 	@ExceptionHandler(value = {MissingServletRequestParameterException.class})
 	public ResponseEntity<DefaultErrorList> handleValidationExceptionD(MissingServletRequestParameterException pe, HttpServletRequest request) {
@@ -117,13 +121,14 @@ public class RestExceptionHandler {
 																							"Excepcion de cantidad de parametros de entrada enviados",
 																							request.getRequestURL().toString()
 																							)), GeneralCatalog.GRAL002.getHtttpStatus());
-	}
+	}//Fin del metodo
 	
     
 	/**
+	 * Metodo de manejo de excepciones 
 	 * @param ex Modelo de la excepcion recibida, controla excepcion de tamanio de archivo
 	 * @param request Informacion del request enviado
-	 * @return Respuesta basada en el catalogo de excepciones
+	 * @return ResponseEntity<DefaultErrorList> Respuesta basada en el catalogo de excepciones
 	 */
 	@ExceptionHandler(MaxUploadSizeExceededException.class)
 	public ResponseEntity<DefaultErrorList> handleExceptionSizeFile(MaxUploadSizeExceededException ex,  HttpServletRequest request) {
@@ -135,12 +140,13 @@ public class RestExceptionHandler {
 															  				"El documento no puede exceder el limite del documento",
 																			request.getRequestURL().toString()
 																			 )), BusinessCatalog.BUSI001.getHtttpStatus());
-	}
+	}//Fin del metodo 
 	
 	/**
 	 * Manejo de excepcion metodo HTTP no soportado
 	 * @param ex Excepcion generica de tipo Exception
-	 * @return La entidad de respuesta que maneja el error como objeto
+	 * @param request Informacion del request enviado
+	 * @return ResponseEntity<DefaultErrorList>  La entidad de respuesta que maneja el error como objeto
 	 */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<DefaultErrorList> handlerMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpServletRequest request) {
@@ -152,13 +158,14 @@ public class RestExceptionHandler {
 																			"Metodo HTTP no soportado para este endpoint",
 																			request.getRequestURL().toString()
 																			)), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+    }//Fin del metodo 
 	
     
 	/**
 	 * Manejo de excepcion generica
 	 * @param ex Excepcion generica de tipo Exception
-	 * @return La entidad de respuesta que maneja el error como objeto
+	 * @param request Informacion del request enviado
+	 * @return ResponseEntity<DefaultErrorList> La entidad de respuesta que maneja el error como objeto
 	 */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<DefaultErrorList> handleGenericException(Exception ex, HttpServletRequest request) {
@@ -169,6 +176,5 @@ public class RestExceptionHandler {
 																			GeneralCatalog.GRAL001.getLevelException().toString(),
 																			request.getRequestURL().toString()
 																			)), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-}
+    }//Fin del metodo 
+}//Fin de la clase 

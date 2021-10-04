@@ -1,7 +1,6 @@
 package mx.santander.fiduciario.instruccionregistro.controller;
 
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import lombok.Setter;
 import mx.santander.fiduciario.instruccionregistro.dto.instruction.send.res.SendInstrResDto;
 import mx.santander.fiduciario.instruccionregistro.service.IInstructionSendService;
@@ -24,7 +22,7 @@ import mx.santander.fiduciario.instruccionregistro.service.IInstructionSendServi
  * Este controlador permite realizar diferentes operaciones HTTP, asociado al
  * recurso intructions Se cuenta con los service: 1.- typeInstruction: Servicio
  * encargado de manejar recurso de tipo de instrucciones
- *
+ * @author 
  */
 @Setter
 @RestController
@@ -44,12 +42,12 @@ public class InstructionController {
 	 * implementacion de la interfaz de negocio typeInstructionService puede
 	 * realizar ciertas transformaciones DTO a la consulta para enriquecer la
 	 * presentacion.
-	 * 
 	 * Este metodo es idempotente, y sus procesos derivados NUNCA deben modificar el
 	 * estado de algun recurso en el servidor. TODOS los procesos desencadenados
 	 * deben ser solo de consulta.
-	 * 
-	 * @return Una lista de typeInstructions en un objeto JSON obtenido
+	 * @param files archivo 
+	 * @param instruction instruccion 
+	 * @return ResponseEntity<?> Una lista de typeInstructions en un objeto JSON obtenido
 	 */
 	@PostMapping(value = "/instructions", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<?> saveInstructions(@RequestParam(name = "files", required = true) List<MultipartFile> files,
@@ -63,6 +61,5 @@ public class InstructionController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(instrResDto);
-	}
-
-}
+	}//Fin del metodo 
+}//Fin de la clase 

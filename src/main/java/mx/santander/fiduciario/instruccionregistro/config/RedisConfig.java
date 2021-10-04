@@ -16,25 +16,27 @@ import org.springframework.cache.annotation.CachingConfigurer;
 import org.springframework.cache.interceptor.CacheErrorHandler;
 
 /**
- * @author David Gonzalez - (Arquetipo creado por Santander Tecnologia Mexico)
- * 
  * Clase de configuracion de Redis
+ * @author David Gonzalez - (Arquetipo creado por Santander Tecnologia Mexico)
  */
 @Configuration
 public class RedisConfig extends CachingConfigurerSupport implements CachingConfigurer {
 
+	//La variable redisHost
     @Value("${spring.redis.host}")
     private String redisHost;
 
+    //La variable redisPort
     @Value("${spring.redis.port}")
     private Integer redisPort;
 
+    //La variable redisPassword
     @Value("${spring.redis.password}")
     private String redisPassword;
     
     /**
      * Metodo que inicializa la fabrica de conexion basado en la configuracion de conexion establecida
-     * @return Fabrica de conexion de Jedis
+     * @return JedisConnectionFactory Fabrica de conexion de Jedis
      */
     @Bean("jedisConnectionFactory")
     @Primary
@@ -43,14 +45,12 @@ public class RedisConfig extends CachingConfigurerSupport implements CachingConf
                 new RedisStandaloneConfiguration(redisHost, redisPort);
         configuration.setPassword(redisPassword);
         return new JedisConnectionFactory(configuration);
-    }
+    }//Fin del metodo
 
-
-    
     /**
      * Metodo de inicializacion de manager de cache
      * @param factory Fabrica de conexion de Redis
-     * @return Manager de cache RedisCacheManager
+     * @return CacheManager Manager de cache RedisCacheManager
      */
     @Bean("redisCacheManager")
     @Primary
@@ -58,13 +58,14 @@ public class RedisConfig extends CachingConfigurerSupport implements CachingConf
         RedisCacheManager.RedisCacheManagerBuilder builder = RedisCacheManager
                 .RedisCacheManagerBuilder.fromConnectionFactory(factory);
         return builder.build();
-    }
+    }//Fin del metodo
     
-    
+    /**
+     * Metodo errorHandler
+     * @return CacheErrorHandler retorna un errorHandler personalizado
+     */
     @Override
     public CacheErrorHandler errorHandler() {
         return new CustomCacheErrorHandler();
-    }
-
-
-}
+    }//Fin del metodo 
+}//Fin de la clase 
