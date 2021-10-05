@@ -18,3 +18,9 @@ spring:
     #Propiedades para obtencion de configuraciones en ambiente LOCAL
     name: ${spring.application.name}
     profile: ${spring.profiles.active}
+config:
+    uri:
+      notification:  http://localhost:8090/notificacion/v1/send-email  
+      email:  https://gestion12.herokuapp.com/user_management/v1/users/{buc}
+    
+    

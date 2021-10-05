@@ -1,7 +1,10 @@
 package mx.santander.fiduciario.instruccionregistro.exception;
 
+import org.springframework.http.HttpStatus;
+
 import mx.santander.fiduciario.instruccionregistro.controller.exception.model.ModelException;
 import mx.santander.fiduciario.instruccionregistro.exception.catalog.GeneralCatalog;
+import mx.santander.fiduciario.instruccionregistro.exception.catalog.LevelException;
 
 /**
  * Clase GeneralException
@@ -28,4 +31,10 @@ public class GeneralException extends ModelException{
 	public GeneralException(GeneralCatalog catalog) {
 		super(catalog.getHtttpStatus(), catalog.getCode(), catalog.getMessage(), catalog.getLevelException().toString());
 	}//Fin del construtor 
-}//Fin de la clase 
+	
+	public GeneralException(String code, String msg,String description,HttpStatus status, LevelException lexception) {
+		super(status, code, msg, lexception.toString(), description);
+		
+		
+	}
+}//Fin de la clase
