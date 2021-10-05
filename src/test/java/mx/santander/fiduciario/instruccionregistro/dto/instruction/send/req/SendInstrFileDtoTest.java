@@ -67,7 +67,7 @@ class SendInstrFileDtoTest {
 	}
 
 	@Test
-	@DisplayName("Crea Objeto DTO contructor parametros nulos, CASO_FALLIDO")
+	@DisplayName("Crea Objeto DTO sin parametros contructor, CASO_FALLIDO")
 	void newSendInstrFileDto_fail2() {
 		SendInstrFileDto sendInstrFileDto = new SendInstrFileDto();
 		assertAll(

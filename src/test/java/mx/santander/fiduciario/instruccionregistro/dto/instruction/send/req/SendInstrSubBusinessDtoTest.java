@@ -52,7 +52,7 @@ class SendInstrSubBusinessDtoTest {
 	}
 
 	@Test
-	@DisplayName("Crea Objeto DTO contructor parametros nulos, CASO_FALLIDO")
+	@DisplayName("Crea Objeto DTO sin parametros contructor, CASO_FALLIDO")
 	void newSendInstrSubBusinessDto_fail2() {
 		SendInstrSubBusinessDto sendInstrSubBusinessDto = new SendInstrSubBusinessDto();
 		assertAll(

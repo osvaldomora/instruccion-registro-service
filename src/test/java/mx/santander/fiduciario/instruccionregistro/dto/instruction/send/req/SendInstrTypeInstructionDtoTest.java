@@ -24,7 +24,7 @@ class SendInstrTypeInstructionDtoTest {
 	}
 	
 	@Test
-	@DisplayName("Crea Objeto DTO contructor vacio, CASO_EXITO")
+	@DisplayName("Crea Objeto DTO sin parametros contructor, CASO_FALLIDO")
 	void newSendTypeInsDto_success2() {
 		SendInstrTypeInstructionDto typeInstructionDto = new SendInstrTypeInstructionDto();
 		SendInstrTypeInstructionDto typeInstructionDto2= new SendInstrTypeInstructionDto();
