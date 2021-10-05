@@ -27,7 +27,7 @@ public class DefaultErrorList implements Serializable {
 	 * @param errorBean Bean de errores
 	 */
 	public DefaultErrorList(final DefaultError errorBean){
-		errors.add(errorBean);
+		this.add(errorBean);
 	}//Fin del constructor 
 
 	/**

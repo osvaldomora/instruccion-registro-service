@@ -182,11 +182,9 @@ public class InstructionSendService implements IInstructionSendService {
 		instrResDto.getData().setFolios(foliosObtenidos);
 		
 		//Se envia notificacion al usuario que envio la instruccion.
-//		if (!instrResDto.getData().getFolios().isEmpty()) {
-//			  instrResDto=validateNotification(jsonRequest,instrResDto);
-//			
-//			
-//		}
+		if (!instrResDto.getData().getFolios().isEmpty()) {
+			  instrResDto=validateNotification(jsonRequest,instrResDto);		
+		}
 
 		return instrResDto;
 	}//Fin del metodo 
