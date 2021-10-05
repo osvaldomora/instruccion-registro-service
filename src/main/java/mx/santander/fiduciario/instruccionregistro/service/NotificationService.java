@@ -52,7 +52,6 @@ public class NotificationService implements INotificationService {
 		ObjectMapper mapper = new ObjectMapper();
 		try {System.out.println(jsonRequest);
 			instrReqDto = mapper.readValue(jsonRequest, SendInstrReqDto.class);
-			System.out.println("mundo");
 		} catch (IOException | IllegalArgumentException e) { // Error al Mapear JSON a DTO
 			LOGGER.error("Operacion: saveInstructions, error en la estructura del JSON de entrada.");
 			throw new InvalidDataException(InvalidDataCatalog.INVD001, "Error en la estructura del JSON de entrada.");

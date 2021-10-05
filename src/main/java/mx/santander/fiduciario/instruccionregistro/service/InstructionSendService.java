@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.Setter;
@@ -20,12 +21,13 @@ import mx.santander.fiduciario.instruccionregistro.dto.instruction.send.res.Send
 import mx.santander.fiduciario.instruccionregistro.dto.instruction.send.res.SendIntrsFolioDto;
 import mx.santander.fiduciario.instruccionregistro.enumerations.FileInstruction;
 import mx.santander.fiduciario.instruccionregistro.enumerations.StatusInstruction;
+import mx.santander.fiduciario.instruccionregistro.exception.BusinessException;
 import mx.santander.fiduciario.instruccionregistro.exception.InvalidDataException;
 import mx.santander.fiduciario.instruccionregistro.exception.catalog.BusinessCatalog;
 import mx.santander.fiduciario.instruccionregistro.exception.catalog.InvalidDataCatalog;
 import mx.santander.fiduciario.instruccionregistro.model.InstruccionEnviadaModel;
+import mx.santander.fiduciario.instruccionregistro.notification.response.NotificacionResponseDto;
 import mx.santander.fiduciario.instruccionregistro.repository.IInstructionSendRepository;
-import mx.santander.fiduciario.instruccionregistro.exception.BusinessException;
 
 /**
  * Clase InstructionSendService
@@ -59,6 +61,9 @@ public class InstructionSendService implements IInstructionSendService {
 	//Variablde de servicio de Instruccion anexo
 	@Autowired
 	private IAnexoInstructionService anexoInstructionService;
+	
+	@Autowired
+	private INotificationService notificationService;
 
 	/**
 	 * Este metodo permite guardar en el repositorio una instruccion
@@ -175,9 +180,32 @@ public class InstructionSendService implements IInstructionSendService {
 
 		//Agregamos lista de folios a respuesta final
 		instrResDto.getData().setFolios(foliosObtenidos);
+		
+		//Se envia notificacion al usuario que envio la instruccion.
+//		if (!instrResDto.getData().getFolios().isEmpty()) {
+//			  instrResDto=validateNotification(jsonRequest,instrResDto);
+//			
+//			
+//		}
 
 		return instrResDto;
 	}//Fin del metodo 
+
+	private SendInstrResDto  validateNotification(String jsonRequest,SendInstrResDto instrResDto) {
+
+		NotificacionResponseDto response=notificationService.notification(jsonRequest );
+		if(response.getStatus().getSuccess()) {
+			instrResDto.getData().getNotification().getNotification().setDescription(response.getStatus().getDescription());
+			instrResDto.getData().getNotification().getNotification().setSuccess(response.getStatus().getSuccess());
+		}
+		else {
+			instrResDto.getData().getNotification().getNotification().setDescription("no se pudo enviar el email");
+			instrResDto.getData().getNotification().getNotification().setSuccess(false);
+		}
+		
+		
+	return instrResDto;
+	}
 
 	/**
 	 * Este metodo permite insertar los archivos en la tabla de Instrucciones anexas, valida existe comite tecnico

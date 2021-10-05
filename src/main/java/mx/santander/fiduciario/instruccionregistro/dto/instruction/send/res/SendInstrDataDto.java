@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import mx.santander.fiduciario.instruccionregistro.dto.notification.res.NotificationDto;
 
 /**
  * Se transforman los datos de envio de instrucciones DATA
@@ -26,4 +27,6 @@ public class SendInstrDataDto implements Serializable{
 	// La variable folios
 	@Builder.Default
 	private List<SendIntrsFolioDto> folios = new ArrayList<>();
+	private NotificationDto notification;
+	
 }//Fin de las clases 
