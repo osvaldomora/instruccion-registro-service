@@ -17,8 +17,8 @@ spring:
 #---------------------------------------
   datasource: 
     url: jdbc:oracle:thin:@127.0.0.1:1521:xe
-    username: iacruz
-    password: iacruz
+    username: osva
+    password: osva
     driver-class-oracle.jdbc.driver: OracleDriver
     initialization-mode: never
   jpa:

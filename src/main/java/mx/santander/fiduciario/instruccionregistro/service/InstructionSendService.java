@@ -19,6 +19,7 @@ import mx.santander.fiduciario.instruccionregistro.dto.instruction.send.req.Send
 import mx.santander.fiduciario.instruccionregistro.dto.instruction.send.res.SendInstrDataDto;
 import mx.santander.fiduciario.instruccionregistro.dto.instruction.send.res.SendInstrResDto;
 import mx.santander.fiduciario.instruccionregistro.dto.instruction.send.res.SendIntrsFolioDto;
+import mx.santander.fiduciario.instruccionregistro.dto.notification.res.Notification;
 import mx.santander.fiduciario.instruccionregistro.enumerations.FileInstruction;
 import mx.santander.fiduciario.instruccionregistro.enumerations.StatusInstruction;
 import mx.santander.fiduciario.instruccionregistro.exception.BusinessException;
@@ -167,7 +168,8 @@ public class InstructionSendService implements IInstructionSendService {
 		Long idInstrTemp = null;
 		
 		//Registar documento  BD (Registro Documento) y obtiene Folio
-		if(!COMITE_TECNICO) {	//Sin comite tecnico
+		if(!COMITE_TECNICO) {
+			//Sin comite tecnico
 			folioTemp = this.documentRegistrationService.saveRegistrationDoc(instrReqDto, fileDtoInstruction).getNumeroUnicoDoc();
 		}
 		//Registrar instruccion BD (Instruccion Enviada)
@@ -181,26 +183,54 @@ public class InstructionSendService implements IInstructionSendService {
 		//Agregamos lista de folios a respuesta final
 		instrResDto.getData().setFolios(foliosObtenidos);
 		
+		instrResDto.getData().getFolios().forEach(x->System.out.println(x));
 		//Se envia notificacion al usuario que envio la instruccion.
 		if (!instrResDto.getData().getFolios().isEmpty()) {
 			  instrResDto=validateNotification(jsonRequest,instrResDto);		
 		}
+		else {
+			
+			/**
+			 *
+			 * 1*-se va a tenr un setvicio que envie las notificaciones para obtener las notificaciones por informar.
+			 * 2.- en el servicio de envio de instruccion se ira a la tabla de comites tecnicos para ir por una lista de bucs
+			 *     asociados a la instruccion.
+			 * 3.- Setear los datos en la tabla de NOTIFICACIONES con el estatus 0 que indica no leido.
+			 * 4.- Cuando se de click al mensaje se va a realizar un update la tabla de Notificaciones para cambiar la bandera 
+		
+			   
+			 */
+			
+			
+			//llamar al metodo que me obtendra los bucs de los comites tecnicos.
+			
+		}
 
 		return instrResDto;
 	}//Fin del metodo 
-
+ /**
+  * 
+  * @param jsonRequest reques enviado
+  * @param instrResDto objeto SendInstrResDto
+  * @return
+  */
 	private SendInstrResDto  validateNotification(String jsonRequest,SendInstrResDto instrResDto) {
-
+        
+		//se hace el llamado a la api de notificaciones
 		NotificacionResponseDto response=notificationService.notification(jsonRequest );
+		
+		instrResDto.getData().setNotification(Notification.builder().build());
+		//si el correo fue enviado correctamente
 		if(response.getStatus().getSuccess()) {
-			instrResDto.getData().getNotification().getNotification().setDescription(response.getStatus().getDescription());
-			instrResDto.getData().getNotification().getNotification().setSuccess(response.getStatus().getSuccess());
+			instrResDto.getData().getNotification().setDescription(response.getStatus().getDescription());
+			instrResDto.getData().getNotification().setSuccess(response.getStatus().getSuccess());
 		}
 		else {
-			instrResDto.getData().getNotification().getNotification().setDescription("no se pudo enviar el email");
-			instrResDto.getData().getNotification().getNotification().setSuccess(false);
-		}
+			instrResDto.getData().getNotification().setDescription(response.getStatus().getDescription());
+			instrResDto.getData().getNotification().setSuccess(response.getStatus().getSuccess());
 		
+		}
+
 		
 	return instrResDto;
 	}

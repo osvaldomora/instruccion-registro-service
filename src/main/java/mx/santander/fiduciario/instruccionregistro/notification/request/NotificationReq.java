@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class NotificationReq {
 	@NotNull
 	private String buc;
-	@NotNull
-	private String email;
+//	@NotNull
+//	private String email;
 
 }

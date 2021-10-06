@@ -20,7 +20,7 @@ spring:
     profile: ${spring.profiles.active}
 config:
     uri:
-      notification:  http://localhost:8090/notificacion/v1/send-email  
-      email:  https://gestion12.herokuapp.com/user_management/v1/users/{buc}
+      notification:  http://localhost:8091/notificacion/v1/send-email  
+      
     
     
