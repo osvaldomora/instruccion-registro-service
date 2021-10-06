@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	
+
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>mx.santander.fiduciario</groupId>
 	<artifactId>instruccion-registro-service</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	
+
 	<packaging>jar</packaging>
 
 	<name>Microservicio de InstruccionRegistro</name>
 	<description>Microservicio de InstruccionRegistro</description>
 
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<java.version>1.8</java.version>
-		<!-- Properties coverage pruebas unitarias 04/10/2021-->
+		<!-- Properties coverage pruebas unitarias 04/10/2021 -->
 		<jacoco.version>0.8.3</jacoco.version>
 		<sonar.jacoco.reportPaths>${project.basedir}/target/coverage-reports/jacoco-unit.exec</sonar.jacoco.reportPaths>
 		<junit-jupiter.version>5.5.2</junit-jupiter.version>
@@ -33,15 +34,15 @@
 		<version>2.1.9.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
-				
-		
+
+
+
 		<!-- Librerias habilitadoras de componente Swagger swagger-ui.html -->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -53,7 +54,7 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-				
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -65,102 +66,99 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
-		
-		
-		<!-- Librerias para inyeccion de configuracion y fail fast-->
+
+
+
+		<!-- Librerias para inyeccion de configuracion y fail fast -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
 		<dependency>
-            <groupId>org.springframework.retry</groupId>
-            <artifactId>spring-retry</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-       </dependency>
-       <dependency>
+			<groupId>org.springframework.retry</groupId>
+			<artifactId>spring-retry</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
-	   </dependency>
-	   
-	   
-
-		
-		
-        <!-- Para conexion a BD -->
-		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-		<dependency>
-		    <groupId>com.oracle.ojdbc</groupId>
-		    <artifactId>ojdbc8</artifactId>
-		    <version>19.3.0.0</version>
 		</dependency>
-	     
-	     
-	    <!-- Dependencia de seguridad, validacion de jwt y propagacion de jwt contra keymanager de serenity -->
-	    <!-- 
-	    <dependency>
-		    <groupId>com.santander.serenity.devstack</groupId>
-		    <artifactId>serenity-devstack-security-starter-jwt</artifactId>
-		    <version>4.5.0</version>
+
+
+
+
+
+		<!-- Para conexion a BD -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		 -->
-	    
-		
+
+		<dependency>
+			<groupId>com.oracle.ojdbc</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>19.3.0.0</version>
+		</dependency>
+
+
+		<!-- Dependencia de seguridad, validacion de jwt y propagacion de jwt contra 
+			keymanager de serenity -->
+		<!-- <dependency> <groupId>com.santander.serenity.devstack</groupId> <artifactId>serenity-devstack-security-starter-jwt</artifactId> 
+			<version>4.5.0</version> </dependency> -->
+
+
 		<!-- Para trazabilidad entre microservicios -->
-	   <dependency>
-		    <groupId>org.springframework.cloud</groupId>
-		    <artifactId>spring-cloud-starter-sleuth</artifactId>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-sleuth</artifactId>
 		</dependency>
 		<dependency>
-		      <groupId>org.owasp.encoder</groupId>
-		      <artifactId>encoder</artifactId>
-		      <version>1.2.2</version>
+			<groupId>org.owasp.encoder</groupId>
+			<artifactId>encoder</artifactId>
+			<version>1.2.2</version>
 		</dependency>
-		
+
 
 		<!-- Para implementacion cache Spring -->
-	    <dependency>
-		     <groupId>org.springframework.boot</groupId>
-		     <artifactId>spring-boot-starter-data-redis</artifactId>
-	  	</dependency>
-	  	<dependency>
-			 <groupId>redis.clients</groupId>
-			 <artifactId>jedis</artifactId>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
-		
-		<!-- Nueva  dependencia spring security ya que no se descarga de lo de santander: com.santander.serenity.devstack -->
-		 <dependency>
-        	<groupId>org.springframework.boot</groupId>
-        	<artifactId>spring-boot-starter-security</artifactId>
-   		 </dependency>
-   		
-   		<!-- Nueva dependencia --> 
-   		<dependency>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+		</dependency>
+
+		<!-- Nueva dependencia spring security ya que no se descarga de lo de santander: 
+			com.santander.serenity.devstack -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<!-- Nueva dependencia -->
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.18.20</version>
 			<scope>provided</scope>
 		</dependency>
-   		 
-   		<!-- Se actualiza a JUnit 5 04/10/2021 -->
+
+		<!-- Se actualiza a JUnit 5 04/10/2021 -->
 		<dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit-jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-		</dependencies>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit-jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 	<dependencyManagement>
 		<dependencies>
-			 
+
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
@@ -168,7 +166,7 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -180,28 +178,30 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-	                <groupId>org.jacoco</groupId>
-	                <artifactId>jacoco-maven-plugin</artifactId>
-	                <version>0.8.5</version>
-	                <executions>
-	                    <execution>
-	                        <id>default-prepare-agent</id>
-	                        <goals>
-	                            <goal>prepare-agent</goal>
-	                        </goals>
-	                    </execution>
-	                    <execution>
-	                        <id>default-report</id>
-	                        <phase>verify</phase>
-	                        <goals>
-	                            <goal>report</goal>
-	                        </goals>
-	                    </execution>
-	                </executions>
-            	</plugin>
-			</plugins>
-		</build>
 
-	
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.5</version>
+				<executions>
+					<execution>
+						<id>default-prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-report</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+
 </project>
