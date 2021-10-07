@@ -8,8 +8,7 @@ import mx.santander.fiduciario.instruccionregistro.model.RegistroDocumentoModel;
 /**
  * Interface IDocumentRegistrationRepository
  * Se encarga de gestionar todas las operaciones de persistencia contra una tabla en base de datos
- * @author glenn
- *
+ * @author 
  */
 @Repository
 public interface IDocumentRegistrationRepository extends JpaRepository<RegistroDocumentoModel, Long>{

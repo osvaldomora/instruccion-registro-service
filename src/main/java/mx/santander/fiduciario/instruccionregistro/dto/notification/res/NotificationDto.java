@@ -1,6 +1,7 @@
 package mx.santander.fiduciario.instruccionregistro.dto.notification.res;
 
 import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,11 +20,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Notification implements Serializable{
+public class NotificationDto implements Serializable {
 	// Variable para serializar la clase.
 	private static final long serialVersionUID = 1L;
-	//La variable success
-	private Boolean success;
-	//La variable description
-	private String description;
+	//La variable notification
+	private Notification notification;
 }//Fin de la clase 
