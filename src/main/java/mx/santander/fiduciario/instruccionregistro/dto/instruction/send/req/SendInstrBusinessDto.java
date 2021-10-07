@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * Clase SendInstrBusinessDto
  * La Clase se encarga de transformar datos de envio de Instrucciones de contrato
  * @author 
  */

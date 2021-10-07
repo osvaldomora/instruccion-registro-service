@@ -53,7 +53,7 @@ public class AnexoInstructionService implements IAnexoInstructionService{
 			fileBase64 = FileTool.encode64(file);
 		} catch (IOException e) {
 			//Se lanza error
-			LOGGER.warn("Servicio: AnexoInstructionService, Operacion: save, error al convertir file a base64: {}",e.getMessage());
+			LOGGER.warn("Servicio: AnexoInstructionService, Operacion: save, error al convertir file a base64: {}",e.getMessage());// exception is logged
 		}
 		//Agregamos file en base64
 		anexoModel.setValInstr(fileBase64);

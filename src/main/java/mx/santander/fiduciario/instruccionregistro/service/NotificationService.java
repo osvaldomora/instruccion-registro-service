@@ -1,7 +1,6 @@
 package mx.santander.fiduciario.instruccionregistro.service;
 
 import java.io.IOException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import mx.santander.fiduciario.instruccionregistro.dto.instruction.send.req.SendInstrReqDto;
 import mx.santander.fiduciario.instruccionregistro.exception.GeneralException;
 import mx.santander.fiduciario.instruccionregistro.exception.InvalidDataException;
@@ -25,19 +22,29 @@ import mx.santander.fiduciario.instruccionregistro.notification.response.Notific
 import mx.santander.fiduciario.instruccionregistro.notification.response.StatusDto;
 
 /**
- * 
+ * La clase NotificationService
+ * Este microservicio,encargada 
+ * de orquestador la logica 
+ * de negocio 
  * @author Z334926
- *
  */
 @Service
 public class NotificationService implements INotificationService {
 	
+	// La Constante LOGGER. Obtiene el Logger de la clase
 	private static final Logger LOGGER = LoggerFactory.getLogger(NotificationService.class);
-
+	//La variable clienteRest
 	@Autowired
 	private RestTemplate clienteRest;
+	//La variable uri
 	@Value("${config.uri.notification}")
 	private String uri;
+	
+	/**
+	 * Metodo notification
+	 * @param jsonRequest json
+	 * @return NotificacionResponseDto respuesta de notificaciones
+	 */
 	@Override
 	public NotificacionResponseDto notification(String jsonRequest) {
 		
@@ -62,12 +69,10 @@ public class NotificationService implements INotificationService {
 					NotificacionResponseDto.class);
 		} catch (RestClientException e) {
 			LOGGER.error("Error al consumir la api de notificaciones {}",e);
-//			throw new GeneralException( GeneralCatalog.GRAL001,"Error al consumir el servicio de notificaciones");
+			//throw new GeneralException( GeneralCatalog.GRAL001,"Error al consumir el servicio de notificaciones");
 			return NotificacionResponseDto.builder().status(StatusDto.builder().success(false).description("no se pudo enviar el email").build()).build();
 		}
 	
 		return response.getBody();
-	}
-
-
-}
+	}//Fin del metodo 
+}//Fin de la clase
