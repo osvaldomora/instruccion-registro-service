@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import mx.santander.fiduciario.instruccionregistro.model.InstruccionAnexoModel;
 
 /**
- * Interface IAnexoInstructionRepository
+ * Clase IAnexoInstructionRepository
  * Se encarga de gestionar todas las operaciones de persistencia contra una tabla en base de datos
  * @author
  */
