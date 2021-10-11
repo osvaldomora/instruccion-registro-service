@@ -17,7 +17,9 @@ public enum BusinessCatalog {
 	//BUSI002
 	BUSI002("BusinessException002","BUSI.002","Formato de archivo no soportado.",HttpStatus.BAD_REQUEST,LevelException.WARN),
 	//BUSI003
-	BUSI003("BusinessException003","BUSI.003","Se ha excedido el limite de archivos.",HttpStatus.BAD_REQUEST,LevelException.WARN);
+	BUSI003("BusinessException003","BUSI.003","Se ha excedido el limite de archivos.",HttpStatus.BAD_REQUEST,LevelException.WARN),
+	//BUSI004
+	BUSI004("BusinessException004","BUSI.004","Formato no valido.",HttpStatus.BAD_REQUEST,LevelException.WARN);
 	//La variable type 
 	private final String type;
 	//La variable code 

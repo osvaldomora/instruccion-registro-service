@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -136,6 +137,29 @@ public class InstructionSendService implements IInstructionSendService {
 		filesDtoTemp = instrReqDto.getFiles();
 		filesTemp = files;
 		
+		//Ordena por nombre
+		filesDtoTemp = filesDtoTemp.stream().sorted((fileD1,fileD2) -> fileD1.getName().compareTo(fileD2.getName())).collect(Collectors.toList());
+		filesTemp = filesTemp.stream().sorted((file1,file2) -> file1.getOriginalFilename().compareTo(file2.getOriginalFilename())).collect(Collectors.toList());
+		
+		
+		//Ordena lista, para que instruccion sea la primera
+		//this.sortList(filesDtoTemp, filesTemp);
+		for(int i=0;i<filesDtoTemp.size();i++) {
+			//Valida si existe archivo tipo INSTRUCCION
+			if(FileInstruction.INSTRUCCION.getName().equalsIgnoreCase(filesDtoTemp.get(i).getType())) {
+				//Se ordena archivo tipo INSTRUCCION al inicio
+				filesDtoTemp.add(0, filesDtoTemp.get(i));
+				filesTemp.add(0,filesTemp.get(i));
+				//Se elimina archivo tipo INSTRUCCION de a posicion que se obtuvo
+				filesDtoTemp.remove(i+1);
+				filesTemp.remove(i+1);
+			}
+		}
+		
+		for(int i=0; i<filesDtoTemp.size();i++) {
+			LOGGER.info("FILE {}, fileName: {}, tamanio: {}, fileNameArr: {}, tamanio: {}",i,filesTemp.get(i).getOriginalFilename(),filesTemp.get(i).getSize(),filesDtoTemp.get(i).getName(),filesDtoTemp.get(i).getSize());
+		}
+		
 		/*Validaciones de archivos*/
 		int contTypeInstr = 0;
 		for(int i=0; i<filesDtoTemp.size();i++) {
@@ -154,10 +178,7 @@ public class InstructionSendService implements IInstructionSendService {
 			LOGGER.error("Operacion: saveInstructions, Error se necesita enviar solo 1 archivo de tipo INSTRUCCION");
 			throw new BusinessException(BusinessCatalog.BUSI002, "Error se necesita enviar solo 1 archivo de tipo INSTRUCCION");
 		}		
-		
-		//Ordena lista, para que instruccion sea la primera
-		this.sortList(filesDtoTemp, filesTemp);
-		
+				
 		/*Inicio insertar instruccion
 		 * SIEMPRE, se envia primero la INSTRUCCION
 		 * para obtener el id temporal de la instruccion enviada (IdIntrsNvas), 
@@ -168,8 +189,7 @@ public class InstructionSendService implements IInstructionSendService {
 		Long idInstrTemp = null;
 		
 		//Registar documento  BD (Registro Documento) y obtiene Folio
-		if(!COMITE_TECNICO) {
-			//Sin comite tecnico
+		if(!COMITE_TECNICO) {	//Sin comite tecnico
 			folioTemp = this.documentRegistrationService.saveRegistrationDoc(instrReqDto, fileDtoInstruction).getNumeroUnicoDoc();
 		}
 		//Registrar instruccion BD (Instruccion Enviada)
@@ -247,6 +267,7 @@ public class InstructionSendService implements IInstructionSendService {
 	private void insertDocAnexosAndLayout(List<SendInstrFileDto> filesDtoTemp, List<MultipartFile> filesTemp,List<SendIntrsFolioDto> foliosObtenidos,SendInstrReqDto instrReqDto, Long folioTemp, Long idInstrTemp) {
 		Date dateInsert = null;
 		//Se recorre archivos para guardar
+		
 		for(int i=0; i<filesTemp.size();i++) {
 			//Archivo JSON a validar
 			SendInstrFileDto fileDto = filesDtoTemp.get(i);
@@ -284,7 +305,9 @@ public class InstructionSendService implements IInstructionSendService {
 	 */
 	private void sortList(List<SendInstrFileDto> filesDtoTemp, List<MultipartFile> filesTemp) {
 		//Ordena el arreglo para que instruccion sea primera posicion
-		for(int i=0;i<filesDtoTemp.size();i++) {
+		filesDtoTemp = filesDtoTemp.stream().sorted((fileD1,fileD2) -> fileD1.getName().compareTo(fileD2.getName())).collect(Collectors.toList());
+		filesTemp = filesTemp.stream().sorted((file1,file2) -> file1.getName().compareTo(file2.getName())).collect(Collectors.toList());
+		/*for(int i=0;i<filesDtoTemp.size();i++) {
 			//Valida si existe archivo tipo INSTRUCCION
 			if(FileInstruction.INSTRUCCION.getName().equalsIgnoreCase(filesDtoTemp.get(i).getType())) {
 				//Se ordena archivo tipo INSTRUCCION al inicio
@@ -295,6 +318,7 @@ public class InstructionSendService implements IInstructionSendService {
 				filesTemp.remove(i+1);
 			}
 		}
+		*/
 	}//Fin del metodo
 	
 	/**
@@ -303,6 +327,7 @@ public class InstructionSendService implements IInstructionSendService {
 	 * @param fileDto informacion de archivo a evaluar
 	 */
 	private void validateSizeFiles(MultipartFile file, SendInstrFileDto fileDto) {
+		LOGGER.info("Nombre de archivo: {}, Archivo file tamanio: {}, archivo arreglo: {}",file.getOriginalFilename(),file.getSize(),fileDto.getSize());
 		Long fileSize = file.getSize();
 		if(fileSize > MAX_SIZE_FILE_BYTES) {	//Valida tamanio de archivo, tiene que se menor a 15MB
 			LOGGER.warn("Operacion: saveInstructions, subOperacion: validateSizeFiles, se supero peso de archivo: {}, archivo: {}"+file.getSize(),file.getName());
